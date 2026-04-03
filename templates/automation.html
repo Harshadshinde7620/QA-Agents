@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="execution-page">
+    <section class="execution-panel">
+        <h1>Automation Execution</h1>
+        <p>Configure CI/CD execution flows and track agent fleets with performance metrics.</p>
+
+        <div class="panel execution-card">
+            <div class="panel-header"><span>Suite Identifier</span><span class="pill">AUTOMATION</span></div>
+            <input class="execution-field" placeholder="Select/Enter Test Case ID" />
+            <button class="module-btn module-btn-warning">Run Automation</button>
+
+            <h4>Execution Status</h4>
+            <div class="status-line">
+                <span>Parallel Agents</span>
+                <strong>08 ACTIVE</strong>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" style="width:65%"></div>
+            </div>
+
+            <div class="grid-icons">
+                <div class="status-indicator active">&#10003;</div>
+                <div class="status-indicator active">&#10003;</div>
+                <div class="status-indicator">&#9881;</div>
+                <div class="status-indicator">&#9675;</div>
+            </div>
+        </div>
+    </section>
+    <script>
+        const runAutomationBtn = document.querySelector('.module-btn-warning');
+        const suiteInput = document.querySelector('.execution-field');
+        const progressBar = document.querySelector('.progress');
+        const statusLineText = document.querySelector('.status-line strong');
+
+        runAutomationBtn.addEventListener('click', () => {
+            const suiteId = suiteInput.value.trim() || 'AUTO_SUITE_14';
+            let progress = 0;
+            statusLineText.textContent = '0 ACTIVE';
+            progressBar.style.width = '0%';
+
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                statusLineText.textContent = `${Math.min(12, Math.ceil(progress / 8.3))} ACTIVE`;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    statusLineText.textContent = '0 ACTIVE - COMPLETED';
+                    progressBar.style.background = '#89ff70';
+                    alert(`Automation suite ${suiteId} completed successfully.`);
+                }
+            }, 150);
+        });
+    </script>
+    <aside class="execution-sidebar">
+        <div class="panel">
+            <h3>Live Stats</h3>
+            <p>CPU Usage: 42.8%</p>
+            <p>Memory Usage: 1.2GB / 4GB</p>
+            <div class="mini-chart">(graph placeholder)</div>
+        </div>
+        <div class="panel">
+            <h3>Quick access</h3>
+            <p>Monitor active agent executions and open shell logs for debugging.</p>
+        </div>
+    </aside>
+</div>
+{% endblock %}

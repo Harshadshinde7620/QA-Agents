@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#86b2fc",
+            "on-tertiary-fixed-variant": "#084689",
+            "secondary-container": "#00b778",
+            "surface-tint": "#7bd0ff",
+            "primary-container": "#38bdf8",
+            "error": "#ffb4ab",
+            "on-secondary": "#003822",
+            "on-secondary-fixed": "#002112",
+            "inverse-on-surface": "#283044",
+            "surface-bright": "#31394d",
+            "on-primary-fixed-variant": "#004c69",
+            "on-error": "#690005",
+            "surface-container": "#171f33",
+            "secondary-fixed": "#6cfcb6",
+            "surface": "#0b1326",
+            "primary": "#8ed5ff",
+            "surface-container-highest": "#2d3449",
+            "surface-container-high": "#222a3d",
+            "on-error-container": "#ffdad6",
+            "tertiary-fixed-dim": "#a9c7ff",
+            "on-surface-variant": "#bdc8d1",
+            "background": "#0b1326",
+            "secondary": "#4bdf9c",
+            "on-tertiary-container": "#014385",
+            "primary-fixed": "#c4e7ff",
+            "on-primary": "#00354a",
+            "on-tertiary-fixed": "#001b3d",
+            "on-primary-container": "#004965",
+            "outline": "#87929a",
+            "tertiary": "#b3cdff",
+            "on-tertiary": "#003063",
+            "surface-dim": "#0b1326",
+            "surface-container-lowest": "#060e20",
+            "on-secondary-fixed-variant": "#005233",
+            "primary-fixed-dim": "#7bd0ff",
+            "error-container": "#93000a",
+            "on-background": "#dae2fd",
+            "tertiary-fixed": "#d6e3ff",
+            "on-primary-fixed": "#001e2c",
+            "inverse-primary": "#00668a",
+            "inverse-surface": "#dae2fd",
+            "on-surface": "#dae2fd",
+            "surface-variant": "#2d3449",
+            "surface-container-low": "#131b2e",
+            "outline-variant": "#3e484f",
+            "secondary-fixed-dim": "#4bdf9c",
+            "on-secondary-container": "#004027"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "fontFamily": {
+            "headline": ["Space Grotesk"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      background-color: #0b1326;
+      color: #dae2fd;
+    }
+  </style>
+</head>
+<body class="font-body">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950 flex items-center justify-between px-6 h-16 border-b border-slate-800 shadow-lg shadow-sky-900/10">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-sky-400 font-['Space_Grotesk']">CYBER SENTINEL</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-400 font-['Space_Grotesk'] hover:text-sky-300 transition-all duration-200" href="#">Dashboard</a>
+<a class="text-sky-400 border-b-2 border-sky-400 font-['Space_Grotesk'] transition-all duration-200" href="#">Manual Execution</a>
+<a class="text-slate-400 font-['Space_Grotesk'] hover:text-sky-300 transition-all duration-200" href="#">Automation</a>
+<a class="text-slate-400 font-['Space_Grotesk'] hover:text-sky-300 transition-all duration-200" href="#">History</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-400 hover:text-sky-300 transition-colors">notifications</button>
+<button class="material-symbols-outlined text-slate-400 hover:text-sky-300 transition-colors">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-slate-700">
+<img alt="User profile" data-alt="close-up portrait of a professional male software engineer in a dark office environment with blue screen lighting reflection" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrwianPeU9fEy3f-5SXDnaZ755TsNRdZF_1j8V50CP2igqjWepolbsHG_XyK9QvSm-Dzdu2nB0kghLYJJHfQk7yetN12K_BBWj9VXJVQV5EEyrEbe4x_oedWa41KtViNoG8A0x_X7rsuALwN7B89QxPmy0HWoyW1JiwEaHjTfdl2MB69LNBCUfR4BmjDKxZii3IMyiGo7cqgUWEeNDq7Wjyf8bneePQxX1dGDENUUJsNkXRhn2U0JlOzjDAIyXdoIFPqpNakovC0g"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-slate-950 border-r border-slate-800 flex flex-col py-4 hidden lg:flex">
+<div class="px-6 mb-8">
+<h2 class="text-sky-400 font-semibold text-sm uppercase tracking-wider">Test Workspace</h2>
+<p class="text-slate-500 text-xs mt-1">Manual Execution</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-900 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-sky-300">precision_manufacturing</span>
+<span>Generator</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 bg-sky-500/10 text-sky-400 border-r-4 border-sky-400 font-semibold active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">play_circle</span>
+<span>Manual Execution</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-900 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-sky-300">robot_2</span>
+<span>Automation</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:bg-slate-900 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-sky-300">history</span>
+<span>History</span>
+</a>
+</nav>
+<div class="px-4 mb-4">
+<button class="w-full py-3 bg-primary-container text-on-primary-container font-bold rounded flex items-center justify-center gap-2 hover:bg-sky-400 transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+        New Test Run
+      </button>
+</div>
+<div class="mt-auto border-t border-slate-900 pt-4">
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:text-sky-300 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-400 hover:text-sky-300 transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 mt-16 p-8 min-h-screen">
+<div class="max-w-7xl mx-auto grid grid-cols-12 gap-8">
+<!-- Execution Controls Column -->
+<div class="col-span-12 xl:col-span-8 space-y-8">
+<!-- Section 1: Execution Input -->
+<section class="bg-surface-container border border-surface-container-highest p-6 rounded-lg shadow-2xl">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline text-lg font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sky-400">terminal</span>
+              Execution Input
+            </h3>
+<span class="text-xs text-outline font-medium uppercase tracking-tighter bg-surface-container-high px-2 py-1 rounded">Input Stage</span>
+</div>
+<div class="space-y-4">
+<textarea class="w-full h-48 bg-surface-container-low border border-outline-variant rounded-lg p-4 font-mono text-sm text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent placeholder-outline-variant" placeholder="You could type the execution that you want to have or Paste the test cases here"></textarea>
+<div class="border-2 border-dashed border-outline-variant hover:border-primary-container rounded-lg p-8 transition-colors group cursor-pointer flex flex-col items-center justify-center bg-surface-container-lowest/50">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-primary transition-colors">upload_file</span>
+<p class="mt-2 text-on-surface-variant font-medium">Attach Excel File (.xlsx, .xls)</p>
+<p class="text-xs text-outline mt-1">Drag and drop or click to browse</p>
+</div>
+</div>
+</section>
+<!-- Section 3: Execution Results (Moved up for better flow if data exists) -->
+<section class="bg-surface-container border border-surface-container-highest overflow-hidden rounded-lg">
+<div class="p-6 border-b border-surface-container-highest flex items-center justify-between bg-surface-container-high/30">
+<h3 class="font-headline text-lg font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sky-400">table_chart</span>
+              Execution Results (Simulated Excel Report)
+            </h3>
+<button class="flex items-center gap-2 px-4 py-2 bg-secondary-container/10 border border-secondary-container/30 text-secondary rounded hover:bg-secondary-container/20 transition-all text-sm font-semibold">
+<span class="material-symbols-outlined text-sm">download</span>
+              Download Enhanced Excel Report
+            </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-highest/50 text-outline uppercase text-[10px] tracking-widest font-bold">
+<tr>
+<th class="px-6 py-4">Test Case ID</th>
+<th class="px-6 py-4">Description</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Execution ID/Logs</th>
+</tr>
+</thead>
+<tbody class="text-sm font-medium">
+<!-- Success Row -->
+<tr class="bg-secondary-container/10 border-l-4 border-secondary transition-colors">
+<td class="px-6 py-4 text-on-surface">ID 01</td>
+<td class="px-6 py-4 text-on-surface-variant">Verify homepage loading time</td>
+<td class="px-6 py-4">
+<span class="bg-secondary-container text-on-secondary px-3 py-1 rounded-full text-xs font-bold uppercase">Success</span>
+</td>
+<td class="px-6 py-4 font-mono text-xs text-outline">LOG_7782_OK</td>
+</tr>
+<!-- Failure Row -->
+<tr class="bg-error-container/10 border-l-4 border-error transition-colors">
+<td class="px-6 py-4 text-on-surface">ID 02</td>
+<td class="px-6 py-4 text-on-surface-variant">Invalid login test case</td>
+<td class="px-6 py-4">
+<span class="bg-error-container text-error px-3 py-1 rounded-full text-xs font-bold uppercase">Failed</span>
+</td>
+<td class="px-6 py-4 font-mono text-xs text-error underline cursor-pointer">ERR_AUTH_042</td>
+</tr>
+<!-- Pending/Generic Row -->
+<tr class="border-b border-surface-container-highest/50 hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 text-on-surface">ID 03</td>
+<td class="px-6 py-4 text-on-surface-variant">Profile update persistence</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-highest text-outline px-3 py-1 rounded-full text-xs font-bold uppercase">Pending</span>
+</td>
+<td class="px-6 py-4 font-mono text-xs text-outline">---</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Authorization & History Column -->
+<div class="col-span-12 xl:col-span-4 space-y-8">
+<!-- Section 2: Pre-Execution Authorization -->
+<section class="bg-surface-container-high border border-primary/20 p-6 rounded-lg shadow-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-10">
+<span class="material-symbols-outlined text-8xl">verified_user</span>
+</div>
+<h3 class="font-headline text-lg font-bold text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-sky-400">security</span>
+            Pre-Execution Authorization
+          </h3>
+<div class="space-y-4 relative z-10">
+<div>
+<label class="block text-xs font-bold text-outline mb-1 uppercase tracking-wider">Target Website URL</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded p-3 text-sm focus:border-primary focus:ring-1 focus:ring-primary" placeholder="https://app.target.com" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-outline mb-1 uppercase tracking-wider">Username</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded p-3 text-sm focus:border-primary" placeholder="Admin" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-bold text-outline mb-1 uppercase tracking-wider">Password</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded p-3 text-sm focus:border-primary" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="bg-surface-container-lowest/80 p-4 rounded border border-error/20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-sm font-medium text-error">Authorization Required</span>
+</div>
+<div class="h-2 w-2 rounded-full bg-error animate-pulse"></div>
+</div>
+<button class="w-full py-4 bg-primary-container/20 text-outline-variant font-bold rounded cursor-not-allowed border border-outline-variant/30 transition-all uppercase tracking-widest text-sm flex items-center justify-center gap-2" disabled="">
+<span class="material-symbols-outlined">play_arrow</span>
+              Execute Manual Testing
+            </button>
+<p class="text-[10px] text-center text-outline-variant italic">Required: Attachment or Test Case text + Auth Credentials</p>
+</div>
+</section>
+<!-- Sidebar: Recent Manual Runs -->
+<section class="bg-surface-container border border-surface-container-highest p-6 rounded-lg">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-lg font-bold text-on-surface">Recent Manual Runs</h3>
+<span class="material-symbols-outlined text-outline">history</span>
+</div>
+<div class="space-y-4">
+<!-- Run Item 1 -->
+<div class="group p-4 bg-surface-container-low rounded border-l-2 border-secondary hover:border-primary-container transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-on-surface">Regression_Pack_v2.1</span>
+<span class="text-[10px] text-outline">2h ago</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<span class="text-secondary text-lg font-bold">142</span>
+<span class="text-[9px] text-outline uppercase font-bold">Passed</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="text-error text-lg font-bold">3</span>
+<span class="text-[9px] text-outline uppercase font-bold">Failed</span>
+</div>
+<div class="flex-1 text-right">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Run Item 2 -->
+<div class="group p-4 bg-surface-container-low rounded border-l-2 border-secondary hover:border-primary-container transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-on-surface">Login_Auth_Flow</span>
+<span class="text-[10px] text-outline">Yesterday</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<span class="text-secondary text-lg font-bold">12</span>
+<span class="text-[9px] text-outline uppercase font-bold">Passed</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-lg font-bold">0</span>
+<span class="text-[9px] text-outline uppercase font-bold">Failed</span>
+</div>
+<div class="flex-1 text-right">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Run Item 3 -->
+<div class="group p-4 bg-surface-container-low rounded border-l-2 border-error hover:border-primary-container transition-all cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-on-surface">Checkout_Stripe_API</span>
+<span class="text-[10px] text-outline">Oct 12</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<span class="text-secondary text-lg font-bold">45</span>
+<span class="text-[9px] text-outline uppercase font-bold">Passed</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="text-error text-lg font-bold">22</span>
+<span class="text-[9px] text-outline uppercase font-bold">Failed</span>
+</div>
+<div class="flex-1 text-right">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 text-xs font-bold text-primary hover:text-sky-300 transition-colors uppercase tracking-widest py-2 border-t border-surface-container-highest">
+            View All Execution History
+          </button>
+</section>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Nav (Shared Component Logic) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-slate-950 flex justify-around items-center h-16 border-t border-slate-800 z-50">
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px]">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-sky-400">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="text-[10px]">Execute</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px]">History</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Profile</span>
+</button>
+</div>
+</body></html>

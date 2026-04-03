@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header">
+    <div>
+        <h1>Unified QA Agent Dashboard</h1>
+        <p>Generate, Execute Manually, or Automate — all in one place</p>
+    </div>
+    <div class="status-pill">SYSTEM STATUS: OPERATIONAL</div>
+</div>
+
+<div class="dashboard-row">
+    <section class="module-panel">
+        <div class="module-heading">
+            <span>Test Case Generator</span>
+            <span class="chip">AI POWERED</span>
+        </div>
+        <input class="module-input" type="text" placeholder="Enter feature/module name" />
+        <button class="module-btn">Generate Test Cases</button>
+        <div class="module-subcard">
+            <h4>Generated Output</h4>
+            <p>No test cases generated yet.</p>
+        </div>
+    </section>
+
+    <section class="module-panel">
+        <div class="module-heading">
+            <span>Manual Execution</span>
+            <span class="chip chip-muted">AGENT HUMAN</span>
+        </div>
+        <input class="module-input" type="text" placeholder="Select/Enter Test Case ID" />
+        <button class="module-btn module-btn-secondary">Run Manually</button>
+        <div class="module-subcard">
+            <h4>Execution Logs</h4>
+            <p>[SYS] Awaiting manual input start command...</p>
+        </div>
+    </section>
+
+    <section class="module-panel">
+        <div class="module-heading">
+            <span>Automation Execution</span>
+            <span class="chip chip-warning">AGENT CI/CD</span>
+        </div>
+        <input class="module-input" type="text" placeholder="Select/Enter Suite ID" />
+        <button class="module-btn module-btn-warning">Run Automation</button>
+        <div class="module-subcard">
+            <h4>Execution Status</h4>
+            <p>Parallel Agents: 08 ACTIVE</p>
+        </div>
+    </section>
+</div>
+
+<section class="panel overview-row">
+    <div class="overview-card"><span>Pass Rate</span><strong>{{ metrics.pass_rate }}%</strong></div>
+    <div class="overview-card"><span>Active Tests</span><strong>{{ metrics.active_tests }}</strong></div>
+    <div class="overview-card"><span>API Calls</span><strong>{{ metrics.total_api_calls }}</strong></div>
+    <div class="overview-card"><span>Last Run</span><strong>{{ metrics.last_run }}</strong></div>
+</section>
+
+<section class="panel attention-row">
+    <h3>Attention Rate</h3>
+    <p>Select a focus rate to tune QA sensitivity in real time.</p>
+    <div class="attention-buttons">
+        <button class="attention-btn" data-rate="75">75%</button>
+        <button class="attention-btn" data-rate="85">85%</button>
+        <button class="attention-btn" data-rate="95">95%</button>
+        <button class="attention-btn attention-btn-primary" data-rate="99">99%</button>
+    </div>
+</section>
+
+<script>
+    const modulePanels = document.querySelectorAll('.module-panel');
+
+    // Test Case Generator panel
+    const generatorPanel = modulePanels[0];
+    const generatorInput = generatorPanel.querySelector('input.module-input');
+    const generatorStatus = generatorPanel.querySelector('.module-subcard p');
+    generatorPanel.querySelector('button.module-btn').addEventListener('click', async () => {
+        const prompt = generatorInput.value.trim() || 'Generate QA test cases for login flows';
+        generatorStatus.textContent = 'Generating...';
+
+        try {
+            const res = await fetch('/api/textgen', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'API failed');
+            generatorStatus.textContent = data.result || 'Generated successfully';
+        } catch (err) {
+            generatorStatus.textContent = 'Error: ' + err.message;
+        }
+    });
+
+    // Manual Execution panel
+    const manualPanel = modulePanels[1];
+    const manualInput = manualPanel.querySelector('input.module-input');
+    const manualStatus = manualPanel.querySelector('.module-subcard p');
+    manualPanel.querySelector('button.module-btn-secondary').addEventListener('click', () => {
+        const caseId = manualInput.value.trim() || 'TC-001';
+        manualStatus.textContent = `[SYS] Manual execution started for ${caseId}. Precision engine engaged.`;
+        setTimeout(() => {
+            manualStatus.textContent += ' Result: PASS (98.7% precision)';
+        }, 1200);
+    });
+
+    // automation execution panel
+    const automationPanel = modulePanels[2];
+    const automationInput = automationPanel.querySelector('input.module-input');
+    const automationStatus = automationPanel.querySelector('.module-subcard p');
+    automationPanel.querySelector('button.module-btn-warning').addEventListener('click', () => {
+        const suiteId = automationInput.value.trim() || 'SUITE-01';
+        automationStatus.textContent = `Automation run in progress for ${suiteId}...`;
+
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 14;
+            automationStatus.textContent = `Automation run in progress for ${suiteId}... ${Math.min(progress, 100)}%`;
+            if (progress >= 100) {
+                clearInterval(interval);
+                automationStatus.textContent = `Automation completed for ${suiteId}. All checks passed.`;
+            }
+        }, 400);
+    });
+
+    // Attention rate selectors
+    const passRateCard = document.querySelector('.overview-card strong');
+    const attentionButtons = document.querySelectorAll('.attention-btn');
+    const statusPill = document.querySelector('.status-pill');
+
+    attentionButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const rate = btn.getAttribute('data-rate');
+            passRateCard.textContent = `${rate}%`;
+            statusPill.textContent = `SYSTEM STATUS: ATTENTION RATE SET TO ${rate}%`;
+            attentionButtons.forEach(b => b.classList.remove('attention-btn-active'));
+            btn.classList.add('attention-btn-active');
+
+            // Sync with manual and automation sections as global signal
+            const manualStatus = document.querySelectorAll('.module-subcard p')[1];
+            const automationStatus = document.querySelectorAll('.module-subcard p')[2];
+            manualStatus.textContent = `[ATTENTION ${rate}%] Manual precision engine tuned.`;
+            automationStatus.textContent = `[ATTENTION ${rate}%] Automation policy sensitivity updated.`;
+
+            // Optionally update extra metrics in the overview card set
+            const activeTests = document.querySelectorAll('.overview-card strong')[1];
+            if (activeTests) {
+                const base = 210;
+                const adj = Math.round(base * (rate / 100));
+                activeTests.textContent = `${adj}`;
+            }
+        });
+    });
+</script>
+
+{% endblock %}

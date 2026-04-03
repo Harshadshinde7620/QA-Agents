@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="execution-page">
+    <section class="execution-panel">
+        <h1>Manual Execution</h1>
+        <p>Start ad-hoc test runs and monitor live execution logs in real-time.</p>
+
+        <div class="panel execution-card">
+            <div class="panel-header"><span>Execution Input</span><span class="pill">INPUT STAGE</span></div>
+            <textarea class="execution-input" placeholder="Type or paste the test case text here..."></textarea>
+            <div class="execution-drop">Attach Excel File (.xlsx, .xls) - drag and drop or click to browse</div>
+        </div>
+
+        <div class="panel execution-card">
+            <div class="panel-header"><span>Pre-Execution Authorization</span></div>
+            <input class="execution-field" placeholder="Target Website URL" value="https://app.target.com" />
+            <div class="auth-grid">
+                <input class="execution-field" placeholder="Username" value="Admin" />
+                <input class="execution-field" placeholder="Password" type="password" value="Pa$$w0rd" />
+            </div>
+            <div class="auth-status">Authorization Required</div>
+            <button class="module-btn">Execute Manual Testing</button>
+        </div>
+    </section>
+
+    <script>
+        const executeBtn = document.querySelector('.execution-page .module-btn');
+        const executionInput = document.querySelector('.execution-input');
+        const authStatus = document.querySelector('.auth-status');
+
+        executeBtn.addEventListener('click', () => {
+            const text = executionInput.value.trim();
+            if (!text) {
+                authStatus.textContent = 'Enter test steps before executing.';
+                authStatus.style.color = '#f86695';
+                return;
+            }
+            authStatus.textContent = 'Executing manual test plan...';
+            authStatus.style.color = '#56ffb6';
+
+            setTimeout(() => {
+                authStatus.textContent = 'Manual run complete: 28 tests executed, 26 passed, 2 failed.';
+                const statusFailed = document.querySelector('.status-failed');
+                if (statusFailed) statusFailed.textContent = 'FAILED';
+            }, 1300);
+        });
+    </script>
+
+    <aside class="execution-sidebar">
+        <div class="panel">
+            <h3>Execution Results (Simulated Excel Report)</h3>
+            <button class="module-btn module-btn-secondary">Download Enhanced Excel Report</button>
+            <div class="result-table">
+                <div class="result-row header">
+                    <span>ID</span><span>Description</span><span>Status</span><span>Log</span>
+                </div>
+                <div class="result-row"><span>ID 01</span><span>Verify homepage loading time</span><span
+                        class="status-success">SUCCESS</span><span>LOG_7782_OK</span></div>
+                <div class="result-row"><span>ID 02</span><span>Invalid login test case</span><span
+                        class="status-failed">FAILED</span><span>ERR_AUTH_642</span></div>
+                <div class="result-row"><span>ID 03</span><span>Profile update persistence</span><span
+                        class="status-pending">PENDING</span><span>…</span></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>Recent Manual Runs</h3>
+            <ul class="recent-list">
+                <li><strong>Regression_Pack_v2.1</strong><span>142 passed / 3 failed</span></li>
+                <li><strong>Login_Auth_Flow</strong><span>12 passed / 0 failed</span></li>
+                <li><strong>Checkout_Stripe_API</strong><span>45 passed / 22 failed</span></li>
+            </ul>
+        </div>
+    </aside>
+</div>
+{% endblock %}

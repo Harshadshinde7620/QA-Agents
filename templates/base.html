@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QA Agents Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="logo-icon material-symbols-outlined">memory</span>
+                <span>QA Agents</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/dashboard"
+                    class="sidebar-link{% if request.path == '/dashboard' or request.path == '/' %} active{% endif %}"><span
+                        class="material-symbols-outlined">dashboard</span>Dashboard</a>
+                <a href="/textgen" class="sidebar-link{% if request.path == '/textgen' %} active{% endif %}"><span
+                        class="material-symbols-outlined">integration_instructions</span>Test Case Generator</a>
+                <a href="/manual" class="sidebar-link{% if request.path == '/manual' %} active{% endif %}"><span
+                        class="material-symbols-outlined">play_circle</span>Manual Execution</a>
+                <a href="/automation" class="sidebar-link{% if request.path == '/automation' %} active{% endif %}"><span
+                        class="material-symbols-outlined">automation</span>Automation Execution</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <button class="btn-primary">+ New Execution</button>
+            </div>
+        </aside>
+
+        <div class="app-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <div class="topbar-title">QA Agents - v4.2.0-STABLE</div>
+                    <div class="topbar-links">
+                        <a href="/dashboard"
+                            class="top-link{% if request.path == '/dashboard' or request.path == '/' %} active{% endif %}">Dashboard</a>
+                        <a href="/textgen" class="top-link{% if request.path == '/textgen' %} active{% endif %}">Test
+                            Suites</a>
+                        <a href="/manual"
+                            class="top-link{% if request.path == '/manual' %} active{% endif %}">Manual</a>
+                        <a href="/automation"
+                            class="top-link{% if request.path == '/automation' %} active{% endif %}">Automation</a>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="icon-btn">&#9881;</button>
+                    <button class="icon-btn">&#128276;</button>
+                    <div class="avatar">AG</div>
+                </div>
+            </header>
+            <main class="content">{% block content %}{% endblock %}</main>
+        </div>
+    </div>
+</body>
+
+</html>

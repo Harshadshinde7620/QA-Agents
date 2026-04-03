@@ -1,0 +1,53 @@
+# Sample API Documentation for Testing
+
+## User Management API
+
+### Endpoints
+
+**GET /users**
+- Description: Retrieve all users
+- Parameters: None
+- Response: List of user objects
+
+**GET /users/{id}**
+- Description: Retrieve a specific user by ID
+- Parameters:
+  - id (integer, required) - User ID
+- Response: User object
+
+**POST /users**
+- Description: Create a new user
+- Parameters:
+  - name (string, required) - User name
+  - email (string, required) - User email
+- Request Body:
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+  ```
+- Response: Created user object
+
+**PUT /users/{id}**
+- Description: Update an existing user
+- Parameters:
+  - id (integer, required) - User ID
+- Request Body: Same as POST
+- Response: Updated user object
+
+**DELETE /users/{id}**
+- Description: Delete a user
+- Parameters:
+  - id (integer, required) - User ID
+- Response: Success message
+
+### Authentication
+All endpoints require Bearer token authentication:
+- Header: Authorization: Bearer {token}
+
+### Error Responses
+- 400 Bad Request: Invalid input
+- 401 Unauthorized: Missing/invalid token
+- 404 Not Found: User not found
+- 500 Internal Server Error: Server error

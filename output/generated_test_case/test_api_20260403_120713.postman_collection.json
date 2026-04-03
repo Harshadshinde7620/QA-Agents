@@ -1,0 +1,357 @@
+{
+  "info": {
+    "name": "test_api",
+    "description": "Automatically generated API test collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "created": "2026-04-03T12:07:13.995320",
+    "updated": "2026-04-03T12:07:13.995320"
+  },
+  "item": [
+    {
+      "name": "GET /users",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "\\s*Bearer",
+            "description": "Authorization header",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        },
+        "description": "**"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Basic response validation",
+              "pm.test(\"Status code is not 5xx\", function () {",
+              "    pm.expect(pm.response.code).to.not.be.oneOf([500, 501, 502, 503, 504, 505]);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 5000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});",
+              "",
+              "pm.test(\"Response has valid JSON\", function () {",
+              "    try {",
+              "        const jsonData = pm.response.json();",
+              "        pm.expect(jsonData).to.be.an('object');",
+              "    } catch (e) {",
+              "        pm.expect.fail('Response is not valid JSON');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET /users/",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "\\s*Bearer",
+            "description": "Authorization header",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ""
+          ]
+        },
+        "description": "{id}**"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Basic response validation",
+              "pm.test(\"Status code is not 5xx\", function () {",
+              "    pm.expect(pm.response.code).to.not.be.oneOf([500, 501, 502, 503, 504, 505]);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 5000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});",
+              "",
+              "pm.test(\"Response has valid JSON\", function () {",
+              "    try {",
+              "        const jsonData = pm.response.json();",
+              "        pm.expect(jsonData).to.be.an('object');",
+              "    } catch (e) {",
+              "        pm.expect.fail('Response is not valid JSON');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST /users",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "\\s*Bearer",
+            "description": "Authorization header",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users"
+          ]
+        },
+        "description": "**",
+        "body": {
+          "mode": "raw",
+          "raw": "{id}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Basic response validation",
+              "pm.test(\"Status code is not 5xx\", function () {",
+              "    pm.expect(pm.response.code).to.not.be.oneOf([500, 501, 502, 503, 504, 505]);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 5000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});",
+              "",
+              "pm.test(\"Content-Type header is present\", function () {",
+              "    pm.response.to.have.header(\"Content-Type\");",
+              "});",
+              "",
+              "pm.test(\"Response has valid JSON\", function () {",
+              "    try {",
+              "        const jsonData = pm.response.json();",
+              "        pm.expect(jsonData).to.be.an('object');",
+              "    } catch (e) {",
+              "        pm.expect.fail('Response is not valid JSON');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUT /users/",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "\\s*Bearer",
+            "description": "Authorization header",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ""
+          ]
+        },
+        "description": "{id}**",
+        "body": {
+          "mode": "raw",
+          "raw": "{id}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Basic response validation",
+              "pm.test(\"Status code is not 5xx\", function () {",
+              "    pm.expect(pm.response.code).to.not.be.oneOf([500, 501, 502, 503, 504, 505]);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 5000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});",
+              "",
+              "pm.test(\"Content-Type header is present\", function () {",
+              "    pm.response.to.have.header(\"Content-Type\");",
+              "});",
+              "",
+              "pm.test(\"Response has valid JSON\", function () {",
+              "    try {",
+              "        const jsonData = pm.response.json();",
+              "        pm.expect(jsonData).to.be.an('object');",
+              "    } catch (e) {",
+              "        pm.expect.fail('Response is not valid JSON');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "DELETE /users/",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "\\s*Bearer",
+            "description": "Authorization header",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ""
+          ]
+        },
+        "description": "{id}**"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Basic response validation",
+              "pm.test(\"Status code is not 5xx\", function () {",
+              "    pm.expect(pm.response.code).to.not.be.oneOf([500, 501, 502, 503, 504, 505]);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 5000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+              "});",
+              "",
+              "pm.test(\"Response has valid JSON\", function () {",
+              "    try {",
+              "        const jsonData = pm.response.json();",
+              "        pm.expect(jsonData).to.be.an('object');",
+              "    } catch (e) {",
+              "        pm.expect.fail('Response is not valid JSON');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.example.com",
+      "type": "string"
+    }
+  ]
+}

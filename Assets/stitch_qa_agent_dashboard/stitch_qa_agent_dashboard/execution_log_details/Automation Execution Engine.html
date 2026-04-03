@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precision Engine - Execution Log</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#171f33",
+                        "on-tertiary": "#472a00",
+                        "surface-variant": "#2d3449",
+                        "on-surface-variant": "#c6c6cd",
+                        "secondary-container": "#3a4a5f",
+                        "on-tertiary-container": "#b47300",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-primary-fixed-variant": "#004c69",
+                        "background": "#0b1326",
+                        "outline": "#909097",
+                        "tertiary-container": "#251400",
+                        "on-secondary": "#213145",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed": "#c4e7ff",
+                        "outline-variant": "#45464d",
+                        "inverse-primary": "#00668a",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#060e20",
+                        "surface": "#0b1326",
+                        "on-secondary-fixed": "#0b1c30",
+                        "primary-fixed-dim": "#7bd0ff",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#dae2fd",
+                        "surface-dim": "#0b1326",
+                        "secondary": "#b7c8e1",
+                        "tertiary-fixed": "#ffddb8",
+                        "error": "#ffb4ab",
+                        "tertiary": "#ffb95f",
+                        "primary-container": "#001a27",
+                        "surface-container-high": "#222a3d",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#2d3449",
+                        "surface-tint": "#7bd0ff",
+                        "surface-bright": "#31394d",
+                        "on-primary": "#00354a",
+                        "primary": "#7bd0ff",
+                        "on-primary-fixed": "#001e2c",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-secondary-container": "#a9bad3",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-surface": "#dae2fd",
+                        "surface-container-low": "#131b2e",
+                        "on-primary-container": "#008abb",
+                        "inverse-on-surface": "#283044",
+                        "on-background": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .log-line:hover { background-color: #222a3d; }
+        @keyframes pulse-glow {
+            0% { opacity: 0.6; box-shadow: 0 0 0px #008abb; }
+            50% { opacity: 1; box-shadow: 0 0 10px #008abb; }
+            100% { opacity: 0.6; box-shadow: 0 0 0px #008abb; }
+        }
+        .status-pulse { animation: pulse-glow 2s infinite ease-in-out; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0b1326] flex justify-between items-center px-6 h-16 w-full font-['Space_Grotesk'] tracking-wide uppercase text-sm font-bold">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black tracking-tighter text-[#7bd0ff]">PRECISION ENGINE</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">Test Suites</a>
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] pb-1 cursor-pointer active:scale-95" href="#">Executions</a>
+<a class="text-slate-400 hover:text-white transition-colors duration-200 cursor-pointer active:scale-95" href="#">Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-surface-container-low px-3 py-1.5 rounded border border-outline-variant/20">
+<span class="material-symbols-outlined text-outline text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[10px] w-48 text-on-surface-variant placeholder:text-outline" placeholder="SEARCH LOGS..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-slate-400 hover:text-white transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-slate-400 hover:text-white transition-colors" data-icon="settings">settings</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-primary/20" data-alt="close up professional headshot of a technical engineer with minimalist lighting and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpg_Iv3x18Z-2tyr_ACk-aMc18bsGth8JIeFrDB5zB6lsBoBj_SmLsq1j9VQuUlGJ1YHGhdE51S3Wd3k7t37QvwQExq6mJiWcLljSI5se8gLrZ4yMr1WQgF-bupLvDpg068ch6b_9ol5k-RkHnJRhP7ZK7X4dK44QpFAH9ZOCH26iuDdDg8DDX52d5A7tDv4V_hHttlW-cIyGWl0bcMLp4WnXkRuHZ06lVJL3yB_iURu1dj1b6uGBsPNPg0xUwwxVQpRIVLrFVooE"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-[#0b1326] flex flex-col p-4 space-y-2 border-r border-outline-variant/10">
+<div class="flex flex-col mb-6 px-2">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-2 h-2 rounded-full bg-on-primary-container status-pulse"></div>
+<span class="font-['Space_Grotesk'] text-[#7bd0ff] font-bold text-sm tracking-tight">QA_NODE_PROX-01</span>
+</div>
+<span class="text-[10px] text-slate-500 uppercase tracking-widest font-medium">Status: Operational</span>
+</div>
+<div class="flex-1 space-y-1">
+<div class="group flex items-center gap-3 px-3 py-2 text-slate-400 hover:bg-[#171f33] hover:text-white transition-all cursor-pointer font-medium text-sm rounded">
+<span class="material-symbols-outlined text-lg" data-icon="memory">memory</span>
+<span>Agents</span>
+</div>
+<div class="group flex items-center gap-3 px-3 py-2 text-slate-400 hover:bg-[#171f33] hover:text-white transition-all cursor-pointer font-medium text-sm rounded">
+<span class="material-symbols-outlined text-lg" data-icon="dns">dns</span>
+<span>Nodes</span>
+</div>
+<div class="group flex items-center gap-3 px-3 py-2 text-slate-400 hover:bg-[#171f33] hover:text-white transition-all cursor-pointer font-medium text-sm rounded">
+<span class="material-symbols-outlined text-lg" data-icon="settings_input_component">settings_input_component</span>
+<span>Configurations</span>
+</div>
+<div class="group flex items-center gap-3 px-3 py-2 text-slate-400 hover:bg-[#171f33] hover:text-white transition-all cursor-pointer font-medium text-sm rounded">
+<span class="material-symbols-outlined text-lg" data-icon="inventory_2">inventory_2</span>
+<span>Artifacts</span>
+</div>
+<div class="group flex items-center gap-3 px-3 py-2 bg-[#222a3d] text-[#7bd0ff] border-l-4 border-[#7bd0ff] transition-all cursor-pointer font-medium text-sm">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span>
+<span>System Health</span>
+</div>
+</div>
+<button class="mt-4 bg-gradient-to-r from-primary to-on-primary-container text-on-primary font-bold py-2.5 px-4 rounded text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+            Deploy New Agent
+        </button>
+<div class="pt-4 border-t border-outline-variant/10 space-y-1">
+<div class="flex items-center gap-3 px-3 py-1.5 text-slate-500 hover:text-slate-300 transition-colors cursor-pointer text-xs uppercase">
+<span class="material-symbols-outlined text-base" data-icon="help">help</span>
+<span>Support</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-1.5 text-slate-500 hover:text-slate-300 transition-colors cursor-pointer text-xs uppercase">
+<span class="material-symbols-outlined text-base" data-icon="description">description</span>
+<span>Documentation</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 p-8 min-h-screen pb-20 overflow-x-hidden">
+<!-- Header Section -->
+<header class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<div class="flex items-center gap-4 mb-2">
+<span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-mono text-outline uppercase">Execution Pipeline</span>
+<div class="flex items-center gap-2 bg-on-primary-container/10 px-3 py-1 rounded-full border border-on-primary-container/20 status-pulse">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-[10px] font-bold text-primary tracking-widest uppercase">RUNNING</span>
+</div>
+</div>
+<h1 class="text-4xl font-headline font-bold text-on-surface leading-tight tracking-tight">Execution Log: RUN-9482-BETA</h1>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-surface-container-highest hover:bg-surface-bright text-on-surface px-4 py-2 rounded text-xs font-bold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="pause">pause</span>
+                        PAUSE EXECUTION
+                    </button>
+<button class="bg-error-container hover:brightness-110 text-on-error-container px-4 py-2 rounded text-xs font-bold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="stop">stop</span>
+                        STOP
+                    </button>
+</div>
+</div>
+<!-- Metadata Bar -->
+<div class="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-0.5 bg-outline-variant/10 rounded-lg overflow-hidden border border-outline-variant/10">
+<div class="bg-surface-container-low p-4 flex flex-col gap-1">
+<span class="text-[10px] text-outline font-mono uppercase">Start Time</span>
+<span class="text-sm font-medium text-on-surface">2026-05-12 14:22:01</span>
+</div>
+<div class="bg-surface-container-low p-4 flex flex-col gap-1 border-l border-outline-variant/10">
+<span class="text-[10px] text-outline font-mono uppercase">Duration</span>
+<span class="text-sm font-medium text-primary">00:04:12</span>
+</div>
+<div class="bg-surface-container-low p-4 flex flex-col gap-1 border-l border-outline-variant/10">
+<span class="text-[10px] text-outline font-mono uppercase">Total Tests</span>
+<span class="text-sm font-medium text-on-surface">42</span>
+</div>
+<div class="bg-surface-container-low p-4 flex flex-col gap-1 border-l border-outline-variant/10">
+<span class="text-[10px] text-outline font-mono uppercase">Passed</span>
+<span class="text-sm font-medium text-[#7bd0ff]">38</span>
+</div>
+<div class="bg-surface-container-low p-4 flex flex-col gap-1 border-l border-outline-variant/10">
+<span class="text-[10px] text-outline font-mono uppercase">Failed</span>
+<span class="text-sm font-medium text-error">0</span>
+</div>
+<div class="bg-surface-container-low p-4 flex flex-col gap-1 border-l border-outline-variant/10">
+<span class="text-[10px] text-outline font-mono uppercase">Warnings</span>
+<span class="text-sm font-medium text-tertiary">4</span>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-12 gap-6">
+<!-- Terminal Main Window -->
+<div class="col-span-12 lg:col-span-9">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden flex flex-col h-[600px] shadow-2xl">
+<div class="bg-surface-container-high px-4 py-3 flex justify-between items-center border-b border-outline-variant/10">
+<div class="flex items-center gap-2">
+<div class="flex gap-1.5 mr-4">
+<div class="w-3 h-3 rounded-full bg-error-container/50"></div>
+<div class="w-3 h-3 rounded-full bg-tertiary-container/50"></div>
+<div class="w-3 h-3 rounded-full bg-on-primary-container/30"></div>
+</div>
+<span class="text-xs font-mono text-outline-variant font-bold tracking-widest uppercase">STREAMING_LOG.SH</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="text-[10px] text-outline uppercase font-bold">Live Stream</span>
+<div class="w-8 h-4 bg-primary rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-3 h-3 bg-on-primary rounded-full shadow-sm"></div>
+</div>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="file_download">file_download</span>
+</button>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="fullscreen">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="flex-1 p-6 font-mono text-xs overflow-y-auto leading-relaxed space-y-2 scrollbar-thin scrollbar-thumb-outline-variant">
+<div class="log-line p-1 px-2 rounded transition-colors flex gap-4">
+<span class="text-outline/40">14:22:01</span>
+<span class="text-primary font-bold">[INFO]</span>
+<span class="text-on-surface-variant">Initializing Test Suite: <span class="text-primary underline underline-offset-4">API_V3_REGRESSION</span></span>
+</div>
+<div class="log-line p-1 px-2 rounded transition-colors flex gap-4">
+<span class="text-outline/40">14:22:05</span>
+<span class="text-primary font-bold">[INFO]</span>
+<span class="text-on-surface-variant">Authenticating Agent <span class="text-secondary">PROX-01</span>...</span>
+</div>
+<div class="log-line p-1 px-2 rounded transition-colors flex gap-4">
+<span class="text-outline/40">14:22:08</span>
+<span class="text-on-tertiary-container font-bold">[DEBUG]</span>
+<span class="text-on-surface-variant italic">Connection established. Latency: <span class="text-on-primary-container">4ms</span>.</span>
+</div>
+<div class="log-line p-1 px-2 bg-tertiary/5 rounded transition-colors flex gap-4">
+<span class="text-outline/40">14:22:15</span>
+<span class="text-tertiary font-bold">[WARN]</span>
+<span class="text-tertiary/90">Resource 'user_profile_cache' is near capacity. Threshold 85% exceeded (87.2%).</span>
+</div>
+<div class="log-line p-1 px-2 rounded transition-colors flex gap-4">
+<span class="text-outline/40">14:23:01</span>
+<span class="text-primary font-bold">[INFO]</span>
+<span class="text-on-surface-variant">Executing Case #401: <span class="text-secondary-fixed-dim">POST /auth/login</span>...</span>
+</div>
+<div class="log-line p-1 px-2 bg-primary/5 rounded transition-colors flex gap-4">
+<span class="text-outline/40">14:23:05</span>
+<span class="text-primary font-bold">[INFO]</span>
+<span class="text-on-primary-container font-bold">Case #401 SUCCESS (204ms)</span>
+</div>
+<div class="log-line p-1 px-2 rounded transition-colors flex gap-4">
+<span class="text-outline/40">14:23:10</span>
+<span class="text-primary font-bold">[INFO]</span>
+<span class="text-on-surface-variant">Executing Case #402: <span class="text-secondary-fixed-dim">GET /user/me</span>...</span>
+</div>
+<div class="flex items-center gap-3 p-1 px-2">
+<span class="text-outline/40">14:23:12</span>
+<span class="text-primary animate-pulse font-bold">_</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Stats -->
+<div class="col-span-12 lg:col-span-3 space-y-6">
+<div class="bg-surface-container rounded-xl p-6 border border-outline-variant/10">
+<h3 class="font-headline font-bold text-sm uppercase tracking-widest text-on-surface mb-6 flex items-center justify-between">
+                        Live Stats
+                        <span class="material-symbols-outlined text-primary text-base" data-icon="monitoring">monitoring</span>
+</h3>
+<div class="space-y-8">
+<!-- CPU Usage -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[10px] text-outline font-bold uppercase">CPU Usage</span>
+<span class="text-xs font-mono font-bold text-primary">42.8%</span>
+</div>
+<div class="h-16 w-full relative overflow-hidden flex items-end gap-0.5">
+<div class="w-full h-[30%] bg-primary/20 rounded-t-sm"></div>
+<div class="w-full h-[45%] bg-primary/20 rounded-t-sm"></div>
+<div class="w-full h-[38%] bg-primary/20 rounded-t-sm"></div>
+<div class="w-full h-[62%] bg-primary/20 rounded-t-sm"></div>
+<div class="w-full h-[55%] bg-primary/20 rounded-t-sm"></div>
+<div class="w-full h-[40%] bg-primary/20 rounded-t-sm"></div>
+<div class="w-full h-[30%] bg-primary/40 rounded-t-sm"></div>
+<div class="w-full h-[45%] bg-primary/60 rounded-t-sm"></div>
+<div class="w-full h-[58%] bg-primary rounded-t-sm"></div>
+</div>
+</div>
+<!-- Memory Usage -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[10px] text-outline font-bold uppercase">Memory Usage</span>
+<span class="text-xs font-mono font-bold text-tertiary">1.2GB / 4GB</span>
+</div>
+<div class="h-16 w-full relative overflow-hidden flex items-end gap-0.5">
+<div class="w-full h-[50%] bg-tertiary/20 rounded-t-sm"></div>
+<div class="w-full h-[52%] bg-tertiary/20 rounded-t-sm"></div>
+<div class="w-full h-[51%] bg-tertiary/20 rounded-t-sm"></div>
+<div class="w-full h-[53%] bg-tertiary/20 rounded-t-sm"></div>
+<div class="w-full h-[50%] bg-tertiary/20 rounded-t-sm"></div>
+<div class="w-full h-[54%] bg-tertiary/20 rounded-t-sm"></div>
+<div class="w-full h-[52%] bg-tertiary/40 rounded-t-sm"></div>
+<div class="w-full h-[55%] bg-tertiary/60 rounded-t-sm"></div>
+<div class="w-full h-[58%] bg-tertiary rounded-t-sm"></div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/10">
+<div class="flex flex-col gap-3">
+<button class="w-full bg-surface-container-highest hover:text-primary py-2 rounded text-[10px] font-bold uppercase tracking-wider transition-colors border border-outline-variant/10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="ios_share">ios_share</span>
+                                    Export Full Log
+                                </button>
+<button class="w-full bg-surface-container-highest hover:text-primary py-2 rounded text-[10px] font-bold uppercase tracking-wider transition-colors border border-outline-variant/10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="terminal">terminal</span>
+                                    Shell Access
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gradient-to-br from-surface-container-low to-surface-container-high rounded-xl p-6 border border-primary/10">
+<span class="text-[10px] text-primary font-bold uppercase tracking-widest block mb-2">Quick Access</span>
+<p class="text-xs text-on-surface-variant leading-relaxed mb-4">You are currently monitoring a live execution. Artifacts will be generated once the run reaches 100% completion.</p>
+<div class="flex items-center gap-2 text-xs font-bold text-primary cursor-pointer hover:underline">
+<span>View Artifact Registry</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 right-0 w-[calc(100%-16rem)] h-8 bg-[#0b1326] border-t border-slate-800/20 flex justify-between items-center px-6 font-['Inter'] text-[10px] uppercase tracking-widest">
+<div class="text-slate-500">
+            Precision Engine QA <span class="text-[#7bd0ff]">v4.2.0-stable</span>
+</div>
+<div class="flex gap-6 items-center">
+<span class="flex items-center gap-2 text-slate-500">
+<span class="w-1.5 h-1.5 rounded-full bg-primary/60"></span>
+                System Status: Normal
+            </span>
+<a class="text-slate-500 hover:text-slate-300 transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-slate-300 transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</body></html>

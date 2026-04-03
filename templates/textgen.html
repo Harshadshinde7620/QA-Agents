@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="generator-page">
+    <section class="generator-main">
+        <h1>Test Case Generator</h1>
+        <p>Leverage the QA Agents engine to transform raw requirements and visual mockups into precise, executable QA
+            documentation.</p>
+
+        <div class="textarea-card">
+            <div class="card-header">
+                <span>INPUT REQUIREMENTS</span>
+                <span class="chip">AIREADY</span>
+            </div>
+            <textarea id="prompt-input" rows="12"
+                placeholder="Paste your user stories, technical requirements or drop an image for visual analysis..."></textarea>
+            <div class="textarea-footer">
+                <span class="small-text">Attach Context</span>
+                <span class="small-text">Format Code</span>
+            </div>
+        </div>
+
+        <div class="upload-card" id="drop-area">
+            <span class="material-symbols-outlined">cloud_upload</span>
+            <p>Upload Source Material</p>
+            <small>Drop your files here to train the generation engine</small>
+            <div class="upload-types">PDF | DOC | JPG | PNG</div>
+        </div>
+
+        <button id="generate-btn" class="btn-primary">Generate Test Case Report</button>
+        <span id="status" class="status">Ready</span>
+    </section>
+
+    <aside class="generator-sidebar">
+        <div class="sidebar-title">Recent Generations</div>
+        <ul class="recent-list">
+            <li><strong>OAuth2 Flow Validation</strong><span>24 cases · Generated</span></li>
+            <li><strong>Stripe Integration Tests</strong><span>12 cases · Generated</span></li>
+            <li><strong>Responsive Grid System</strong><span>45 cases · Generated</span></li>
+            <li><strong>SQL Migration Suite</strong><span>18 cases · Generated</span></li>
+        </ul>
+        <div class="status-card">
+            <span>LOCALHOST STATUS</span>
+            <strong>Synced: 127.0.0.1:5000</strong>
+        </div>
+    </aside>
+</div>
+
+<section class="panel output-panel">
+    <h2>Generated Output</h2>
+    <pre id="output" class="output">No output yet.</pre>
+</section>
+
+<script>
+    const promptInput = document.getElementById('prompt-input');
+    const generateBtn = document.getElementById('generate-btn');
+    const outputEl = document.getElementById('output');
+    const statusEl = document.getElementById('status');
+
+    generateBtn.addEventListener('click', async () => {
+        const prompt = promptInput.value.trim();
+        if (!prompt) {
+            statusEl.textContent = 'Please enter a requirement or scenario.';
+            return;
+        }
+
+        statusEl.textContent = 'Generating...';
+        outputEl.textContent = '';
+
+        try {
+            const response = await fetch('/api/textgen', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt })
+            });
+
+            const body = await response.json();
+            if (!response.ok) {
+                statusEl.textContent = 'Error: ' + (body.error || 'unknown');
+                return;
+            }
+
+            outputEl.textContent = body.result;
+            statusEl.textContent = 'Completed';
+
+        } catch (err) {
+            statusEl.textContent = 'Request failed: ' + err.message;
+        }
+    });
+</script>
+{% endblock %}
