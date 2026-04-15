@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-2xl font-bold mb-4">AI Review Reply Agent</h1>
+
+<div class="bg-white p-4 rounded shadow">
+
+    <textarea id="review" class="w-full border p-3 mb-4" rows="6" placeholder="Paste review here..."></textarea>
+
+    <select id="restaurant" class="border p-2 mb-3">
+        <option value="Urban Indian">Urban Indian</option>
+        <option value="Aroma Indian Cuisine">Aroma Indian Cuisine</option>
+    </select>
+
+    <button onclick="generateReply()" class="bg-blue-600 text-white px-4 py-2 rounded">
+        Generate Reply
+    </button>
+
+    <div id="output-container" class="mt-6">
+        <div id="output" class="persistent-output p-4 rounded whitespace-pre-line text-gray-800">
+            <span class="output-placeholder">See your AI generated reply here...</span>
+        </div>
+
+        <div id="controls" class="mt-4 flex space-x-3 hidden">
+            <button onclick="copyReply()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition shadow-md">
+                Copy Reply
+            </button>
+            <button onclick="generateReply()" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg font-medium transition shadow-md">
+                Regenerate
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function generateReply() {
+    const reviewText = document.getElementById('review').value;
+    const restaurant = document.getElementById('restaurant').value;
+    const outputDiv = document.getElementById('output');
+    const controls = document.getElementById('controls');
+
+    if (!reviewText.trim()) {
+        alert("Please paste a review first.");
+        return;
+    }
+
+    outputDiv.innerHTML = '<span class="text-blue-600 animate-pulse">Generating your reply...</span>';
+    outputDiv.classList.add('has-content');
+
+    fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ review_text: reviewText, restaurant: restaurant })
+    })
+    .then(res => res.json())
+    .then(data => {
+        outputDiv.innerText = data.reply;
+        controls.classList.remove('hidden');
+    })
+    .catch(err => {
+        outputDiv.innerHTML = '<span class="text-red-500">Error: Could not connect to AI service.</span>';
+    });
+}
+
+function copyReply() {
+    const outputDiv = document.getElementById('output');
+    const text = outputDiv.innerText;
+
+    if (!text || outputDiv.querySelector('.output-placeholder')) return;
+
+    navigator.clipboard.writeText(text).then(() => {
+        // Clear after copy as requested (Both reply and review text)
+        outputDiv.innerHTML = '<span class="output-placeholder">See your AI generated reply here...</span>';
+        outputDiv.classList.remove('has-content');
+        document.getElementById('controls').classList.add('hidden');
+        document.getElementById('review').value = ''; // Clear review text as requested
+        alert("Reply copied to clipboard! Both review and reply have been cleared.");
+    });
+}
+</script>
+
+{% endblock %}

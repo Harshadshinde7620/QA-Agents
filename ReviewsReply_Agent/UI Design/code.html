@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Intelligence Architect - Dashboard</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+    }
+
+    .bg-primary-gradient {
+      background: linear-gradient(45deg, #004655 0%, #005f73 100%);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+
+  <!-- NAV -->
+  <div class="flex justify-between p-4 bg-white shadow">
+    <div class="text-xl font-bold">The Intelligence Architect</div>
+
+    <div class="flex gap-6">
+      <button id="aromaTab" class="font-bold text-blue-700">Aroma Indian</button>
+      <button id="urbanTab" class="text-gray-500">Urban Indian</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="p-6 max-w-3xl mx-auto">
+
+    <!-- INPUT -->
+    <div class="bg-white p-6 rounded-xl shadow mb-6">
+      <h2 class="font-bold mb-3">Paste Review</h2>
+
+      <textarea id="reviewInput" class="w-full h-40 border p-3 rounded" placeholder="Paste review here..."></textarea>
+
+      <button id="generateBtn" class="mt-4 bg-primary-gradient text-white px-6 py-2 rounded">
+        Generate Response
+      </button>
+    </div>
+
+    <!-- RESPONSE -->
+    <div class="bg-white p-6 rounded-xl shadow">
+      <h2 class="font-bold mb-3">AI Response</h2>
+
+      <div id="responseBox" class="italic text-gray-700">
+        Your generated reply will appear here...
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    let brandContext = "Aroma"; // default
+
+    const textarea = document.getElementById("reviewInput");
+    const responseBox = document.getElementById("responseBox");
+
+    const aromaTab = document.getElementById("aromaTab");
+    const urbanTab = document.getElementById("urbanTab");
+    const generateBtn = document.getElementById("generateBtn");
+
+    // 🔁 SWITCH BRAND
+    function switchBrand(brand) {
+      brandContext = brand;
+
+      // UI highlight
+      if (brand === "Aroma") {
+        aromaTab.classList.add("text-blue-700", "font-bold");
+        urbanTab.classList.remove("text-blue-700", "font-bold");
+      } else {
+        urbanTab.classList.add("text-blue-700", "font-bold");
+        aromaTab.classList.remove("text-blue-700", "font-bold");
+      }
+
+      // Reset (SECRET PAGE behavior)
+      textarea.value = "";
+      responseBox.innerText = "";
+
+      console.log("Switched to:", brandContext);
+    }
+
+    // Attach events
+    aromaTab.addEventListener("click", () => switchBrand("Aroma"));
+    urbanTab.addEventListener("click", () => switchBrand("Urban"));
+
+    // 🧹 AUTO CLEAR INPUT
+    textarea.addEventListener("focus", () => {
+      textarea.value = "";
+    });
+
+    // ⌨️ ENTER = GENERATE
+    textarea.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        generateResponse();
+      }
+    });
+
+    // 🚀 MAIN GENERATION FUNCTION
+    function generateResponse() {
+      const review = textarea.value.trim();
+
+      if (!review) {
+        alert("Please paste a review first.");
+        return;
+      }
+
+      let documentName = "";
+
+      if (brandContext === "Aroma") {
+        documentName = "Aroma April 2026";
+      } else if (brandContext === "Urban") {
+        documentName = "Urban April 2026";
+      }
+
+      // Simulated response
+      responseBox.innerText =
+        "Generating response for " + brandContext + "...\n\n" +
+        "Review will be logged in: " + documentName;
+
+      console.log({
+        brand_context: brandContext,
+        review: review,
+        target_document: documentName
+      });
+
+      // 👉 Replace with API call later
+    }
+
+    // Button click
+    generateBtn.addEventListener("click", generateResponse);
+  </script>
+
+</body>
+
+</html>

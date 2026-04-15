@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-2xl font-bold mb-4">Document Vault</h1>
+
+<!-- Active Docs -->
+<h2 class="text-lg font-semibold mb-2">Current Month</h2>
+<div id="activeDocs" class="mb-6 space-y-2"></div>
+
+<!-- History Docs -->
+<h2 class="text-lg font-semibold mb-2">History</h2>
+<div id="historyDocs" class="space-y-2"></div>
+
+<script>
+fetch('/api/vault-files')
+.then(res => res.json())
+.then(data => {
+
+    const activeDiv = document.getElementById('activeDocs');
+    const historyDiv = document.getElementById('historyDocs');
+
+    activeDiv.innerHTML = '';
+    historyDiv.innerHTML = '';
+
+    // Active Files
+    data.active.forEach(file => {
+        activeDiv.innerHTML += `
+            <div onclick="openVaultFile('${file}')" class="p-4 bg-white shadow hover:shadow-md border border-transparent hover:border-blue-300 rounded-lg cursor-pointer transition flex items-center group">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-600 group-hover:text-white transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+                <span class="font-medium text-gray-700">${file}</span>
+            </div>
+        `;
+    });
+
+    // History Files
+    if (data.history.length === 0) {
+        historyDiv.innerHTML = `<div class="text-gray-500 italic">No historical records available</div>`;
+    } else {
+        data.history.forEach(file => {
+            historyDiv.innerHTML += `
+                <div onclick="openVaultFile('${file}')" class="p-4 bg-white shadow hover:shadow-md border border-transparent hover:border-gray-300 rounded-lg cursor-pointer transition flex items-center group">
+                     <div class="w-10 h-10 bg-gray-50 text-gray-400 rounded-lg flex items-center justify-center mr-4 group-hover:bg-gray-400 group-hover:text-white transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <span class="font-medium text-gray-600">${file}</span>
+                </div>
+            `;
+        });
+    }
+});
+
+function openVaultFile(filename) {
+    const modal = document.getElementById('vaultModal');
+    const title = document.getElementById('modalTitle');
+    const content = document.getElementById('modalContent');
+    
+    title.innerText = filename;
+    content.innerHTML = '<div class="flex justify-center p-10"><div class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div></div>';
+    modal.style.display = 'block';
+
+    fetch(`/api/file/${filename}`)
+    .then(res => res.json())
+    .then(paragraphs => {
+        if (paragraphs.length === 0) {
+            content.innerHTML = '<p class="text-gray-500 italic">This file is empty.</p>';
+        } else {
+            content.innerHTML = paragraphs.map(p => {
+                if (p.startsWith('---')) {
+                    return '<hr class="my-4 border-gray-100">';
+                }
+                const isHeading = p.includes('Reviews - ');
+                return `<p class="${isHeading ? 'text-xl font-bold text-blue-900 mb-4' : 'mb-3 text-gray-700 leading-relaxed'}">${p}</p>`;
+            }).join('');
+        }
+    })
+    .catch(err => {
+        content.innerHTML = '<p class="text-red-500">Error loading file content.</p>';
+    });
+}
+
+function closeModal() {
+    document.getElementById('vaultModal').style.display = 'none';
+}
+
+// Close on click outside
+window.onclick = function(event) {
+    const modal = document.getElementById('vaultModal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+</script>
+
+<!-- Modal -->
+<div id="vaultModal" class="modal">
+    <div class="modal-content relative animate-in fade-in zoom-in duration-300">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <h2 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-6 pr-10 border-b pb-4"></h2>
+        <div id="modalContent" class="prose max-w-none"></div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+- generic [active] [ref=e1]:
+  - complementary [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e6]: architecture
+        - generic [ref=e7]: The Curator
+      - generic [ref=e8]:
+        - paragraph [ref=e9]: Management
+        - generic [ref=e10]:
+          - img "Restaurant Manager Profile" [ref=e11]
+          - generic [ref=e12]:
+            - paragraph [ref=e13]: The Curator
+            - paragraph [ref=e14]: Managing 2 Locations
+        - button "swap_horiz Switch Restaurant" [ref=e15] [cursor=pointer]:
+          - generic [ref=e16]: swap_horiz
+          - text: Switch Restaurant
+      - navigation [ref=e17]:
+        - link "dashboard Dashboard" [ref=e18] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e19]: dashboard
+          - text: Dashboard
+        - link "folder_open Document Vault" [ref=e20] [cursor=pointer]:
+          - /url: /vault
+          - generic [ref=e21]: folder_open
+          - text: Document Vault
+        - link "settings Settings" [ref=e22] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e23]: settings
+          - text: Settings
+    - generic [ref=e24]:
+      - link "help Help Center" [ref=e25] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e26]: help
+        - text: Help Center
+      - link "logout Log Out" [ref=e27] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e28]: logout
+        - text: Log Out
+  - generic [ref=e29]:
+    - banner [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]: The Intelligence Architect
+        - navigation [ref=e33]:
+          - generic [ref=e34] [cursor=pointer]: Aroma Indian
+          - generic [ref=e35] [cursor=pointer]: Urban Indian
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]: search
+          - textbox "Search reviews..." [ref=e39]
+        - button "notifications" [ref=e40] [cursor=pointer]:
+          - generic [ref=e41]: notifications
+        - button "account_circle" [ref=e42] [cursor=pointer]:
+          - generic [ref=e43]: account_circle
+    - main [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e48]:
+            - heading "Curating your online presence." [level=2] [ref=e49]
+            - paragraph [ref=e50]: Paste your latest customer review below. Our AI Architect will draft a professional, brand-aligned response instantly.
+          - generic [ref=e52]:
+            - generic [ref=e53]:
+              - generic [ref=e54]:
+                - generic [ref=e55]: edit_note
+                - text: Review Input
+              - generic [ref=e57]: Google Reviews
+            - textbox "Paste the entire customer review block here..." [ref=e58]
+            - button "Generate Response auto_awesome" [ref=e60] [cursor=pointer]:
+              - text: Generate Response
+              - generic [ref=e61]: auto_awesome
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]:
+                - generic [ref=e66]: smart_toy
+                - generic [ref=e67]:
+                  - heading "Architect Suggestion" [level=3] [ref=e68]
+                  - paragraph [ref=e69]: "Confidence Score: 98%"
+              - generic [ref=e70]:
+                - button "content_copy" [ref=e71] [cursor=pointer]:
+                  - generic [ref=e72]: content_copy
+                - button "refresh" [ref=e73] [cursor=pointer]:
+                  - generic [ref=e74]: refresh
+            - generic [ref=e75]: Waiting for input...
+            - generic [ref=e76]:
+              - generic [ref=e77]:
+                - img "Manager" [ref=e78]
+                - img "Admin" [ref=e79]
+              - paragraph [ref=e80]: Approved by 2 team members
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - heading "Document Vault" [level=3] [ref=e83]
+            - generic [ref=e84] [cursor=pointer]:
+              - generic [ref=e85]:
+                - generic [ref=e86]: description
+                - paragraph [ref=e88]: Apr 2026
+              - heading "April 2026 Registry" [level=4] [ref=e92]
+              - paragraph [ref=e93]: 248 Reviews Stored
+              - paragraph [ref=e96]: Active Session
+          - generic [ref=e97]:
+            - generic [ref=e98]:
+              - heading "Tonal Pulse" [level=3] [ref=e99]
+              - generic [ref=e100]: Real-time
+            - generic [ref=e101]:
+              - generic [ref=e103]:
+                - generic [ref=e104]: Positive Sentiment
+                - generic [ref=e105]: 82%
+              - generic [ref=e109]:
+                - generic [ref=e110]: Neutral Tone
+                - generic [ref=e111]: 15%
+              - generic [ref=e115]:
+                - generic [ref=e116]: Action Required
+                - generic [ref=e117]: 3%
+          - generic [ref=e120]:
+            - heading "Review Insights" [level=3] [ref=e121]
+            - generic [ref=e122]:
+              - generic [ref=e123]: Service Quality
+              - generic [ref=e124]: Wait Time
+              - generic [ref=e125]: Flavor Profile
+              - generic [ref=e126]: +4 More
